@@ -7,3 +7,7 @@ With multiple different gaming styles and devices, it is easy for people to get 
 
 To assist with their decision, our project aims to determine which playstyle is best fitted for a simple rpg platform game based on different input controls. 🎮
 
+### Team Members:
+- Josh Abraham
+- Joshua Stein
+- James Ulaszek
