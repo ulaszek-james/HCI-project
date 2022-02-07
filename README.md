@@ -9,5 +9,7 @@ To assist with their decision, our project aims to determine which playstyle is 
 
 ### Team Members:
 - Josh Abraham
-- Joshua Weinstein AKA Stein
 - James Ulaszek
+- Joshua Weinstein AKA Stein
+
+Feel free to play using keyboard 👍
