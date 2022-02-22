@@ -1,4 +1,4 @@
-## The J-Names' Pain Games
+## The Power of Controls
 
 ***Collaborative project for UF's CEN4721 (Human-Centered Interactions)***
 
