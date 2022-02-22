@@ -11,5 +11,6 @@ To assist with their decision, our project aims to determine which playstyle is 
 - Josh Abraham
 - James Ulaszek
 - Joshua Weinstein AKA Stein
+- Worrell Valentine (Relly)
 
 Feel free to play using keyboard 👍
