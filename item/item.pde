@@ -7,7 +7,7 @@ class Item {
     void use(String type) {
       if(type == "Sword") useSword();
       else if(type == "Potion") usePotion();
-      else if(type == "Gun") useGun();
+      else if(type == "Bow") useBow();
     }
     
     void useSword(){
@@ -22,9 +22,9 @@ class Item {
       }
     }
     
-    void useGun() {
+    void useBow() {
       for (int i = 0; i < lvl1occ; i++) {
-        lvl1entities.checkEntityCollision("Bullet");
+        lvl1entities.checkEntityCollision("Arrow");
       }
     }
 }
