@@ -3,12 +3,12 @@ boolean gameOver;
 boolean paused;
 boolean controls;
 
+// Game Buttons
+Button startButton;
+Button controlButton;
 
-// Game Options
-String[] startMenu = {"Start", "Controls"};
-
-// Game Winddows
-PShape controlWindow;
+// Game controllers
+boolean mk;
 
 void settings() {
   size(700, 700);
@@ -19,6 +19,10 @@ void setup() {
   gameOver = true;
   paused = false;
   controls = false;
+  mk = true; // mouse and keyboard is default controller
+  
+  startButton = new Button("START", 400, 400, width/3, height/10);
+  controlButton = new Button("Controls", 80, 40, width/4, height/10);
 }
 
 void draw() {
@@ -35,26 +39,4 @@ void runGame() {
 
 
 void pauseGame() {
-}
-
-void keyPressed() {
-  if (gameOver || paused) { // Game Session Control (Stopped/Paused)
-    if (key == ' ') { // SPACEBAR PRESS
-      // start or resume game
-      if (gameOver) { // game over or not started
-        gameOver = false; // start game
-        System.out.println("starting game");
-      } else if (paused) {
-        paused = false; // resume game
-      }
-    }
-
-    if (key == 'c') { // OPEN/CLOSE CONTROLS
-      if(controls == false) {
-        controls = true;
-      } else {
-        controls = false;
-      }
-    }
-  }
 }
