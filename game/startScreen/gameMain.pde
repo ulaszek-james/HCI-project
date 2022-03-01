@@ -1,11 +1,14 @@
 // Game State
-boolean gameOver = true;
-boolean paused = false;
-boolean controlScreen = false;
+boolean gameOver;
+boolean paused;
+boolean controls;
 
 
 // Game Options
 String[] startMenu = {"Start", "Controls"};
+
+// Game Winddows
+PShape controlWindow;
 
 void settings() {
   size(700, 700);
@@ -13,10 +16,13 @@ void settings() {
 
 void setup() {
   background(0);
+  gameOver = true;
+  paused = false;
+  controls = false;
 }
 
 void draw() {
-  if(gameOver) {
+  if (gameOver) {
     startGameScreen();
   } else {
     runGame();
@@ -27,12 +33,8 @@ void runGame() {
   background(255);
 }
 
-void showControls() {
-  shape(
-}
 
 void pauseGame() {
-  
 }
 
 void keyPressed() {
@@ -46,10 +48,12 @@ void keyPressed() {
         paused = false; // resume game
       }
     }
-    
-    if(key == 'c') { // Open Controls Menu
-      if(!controlScreen) { // display control screen
-        showControls();
+
+    if (key == 'c') { // OPEN/CLOSE CONTROLS
+      if(controls == false) {
+        controls = true;
+      } else {
+        controls = false;
       }
     }
   }
