@@ -10,6 +10,9 @@ Button controlButton;
 // Game controllers
 boolean mk;
 
+// Game Screens
+ControlScreen controlScreen;
+
 void settings() {
   size(700, 700);
 }
@@ -19,10 +22,13 @@ void setup() {
   gameOver = true;
   paused = false;
   controls = false;
+  
+  startButton = new Button("START", 26, 400, 400, width/3, height/10);
+  controlButton = new Button("Controls",18, 40, 40, width/6, height/12);
+  
   mk = true; // mouse and keyboard is default controller
   
-  startButton = new Button("START", 400, 400, width/3, height/10);
-  controlButton = new Button("Controls", 80, 40, width/4, height/10);
+  controlScreen = new ControlScreen();
 }
 
 void draw() {

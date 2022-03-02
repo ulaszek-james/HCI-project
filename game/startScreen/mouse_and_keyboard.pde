@@ -1,15 +1,21 @@
 // File that handles mouse and keyboard controller
 
 void mousePressed() {
-  if(mk && gameOver) { // at main menu
-    if(startButton.MouseIsOver()) {
-      startButton.drawClickedButton();
-      gameOver = false; // start game
-    }
-    if(controlButton.MouseIsOver()) {
-      controls = true;
+  if (mk && gameOver) { // at main menu
+    if (!controls) { // only clickable while control menu is not open
+      if (startButton.MouseIsOver()) {
+        startButton.drawClickedButton();
+        gameOver = false; // start game
+      }
+      if (controlButton.MouseIsOver()) { // open Control Window
+        controls = true;
+      } else {
+        controls = false;
+      }
     } else {
-      controls = false;
+      if(!controlScreen.MouseIsOver()) {
+        controls = false;
+      }
     }
   }
 }
@@ -26,11 +32,11 @@ void keyPressed() {
   //    }
   //  }
 
-    //if (key == 'c') { // OPEN/CLOSE CONTROLS
-    //  if(controls == false) {
-    //    controls = true;
-    //  } else {
-    //    controls = false;
-    //  }
-    //}
+  //if (key == 'c') { // OPEN/CLOSE CONTROLS
+  //  if(controls == false) {
+  //    controls = true;
+  //  } else {
+  //    controls = false;
+  //  }
+  //}
 }

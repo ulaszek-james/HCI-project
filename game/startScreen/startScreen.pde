@@ -1,27 +1,27 @@
 void startGameScreen() { // start screen
+  push();
   background(0);
   textSize(64);
   textAlign(CENTER);
   text("The Power of Controls", 350, 350);
-  
   showStartMenu();
+  pop();
 }
 
 void showStartMenu() { // holds start menu options
-  if(controlButton.MouseIsOver()) {
-    
+  if(!controls && controlButton.MouseIsOver()) {
     controlButton.drawActiveButton();
   } else {
     controlButton.drawButton();
   }
   
-  if(startButton.MouseIsOver()) {
+  if(!controls && startButton.MouseIsOver()) {
     startButton.drawActiveButton();
   } else {
     startButton.drawButton();
   }
 
   if (controls) {
-    drawControlWindow();
+    controlScreen.drawWindow();
   }
 }
