@@ -2,19 +2,37 @@
 
 void mousePressed() {
   if (mk && gameOver) { // at main menu
-    if (!controls) { // only clickable while control menu is not open
+    if (!controls) { // control menu not open
       if (startButton.MouseIsOver()) {
         startButton.drawClickedButton();
         gameOver = false; // start game
+        levelSelect = true; // go to level select screen
       }
       if (controlButton.MouseIsOver()) { // open Control Window
         controls = true;
       } else {
         controls = false;
       }
-    } else {
+    } else { // control menu open
       if(!controlScreen.MouseIsOver()) {
         controls = false;
+      } else {
+        if(controlScreen.controllerTab.MouseIsOver()) {
+          controlScreen.controllerTab.drawClickedButton();
+          controlScreen.setCurrentTab("controller");
+        }
+        if(controlScreen.soundTab.MouseIsOver()) {
+          controlScreen.soundTab.drawClickedButton();
+          controlScreen.setCurrentTab("sound");
+        }
+        if(controlScreen.displayTab.MouseIsOver()) {
+          controlScreen.displayTab.drawClickedButton();
+          controlScreen.setCurrentTab("display");
+        }
+        if(controlScreen.gameplayTab.MouseIsOver()) {
+          controlScreen.gameplayTab.drawClickedButton();
+          controlScreen.setCurrentTab("gameplay");
+        }
       }
     }
   }

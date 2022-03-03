@@ -1,5 +1,6 @@
 // Game State
 boolean gameOver;
+boolean levelSelect;
 boolean paused;
 boolean controls;
 
@@ -29,6 +30,7 @@ void setup() {
   mk = true; // mouse and keyboard is default controller
   
   controlScreen = new ControlScreen();
+  
 }
 
 void draw() {
