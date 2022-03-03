@@ -36,9 +36,21 @@ void mousePressed() {
       }
     }
   }
+  
+  if(mk && levelSelect) { // at level select screen
+    if(backButton.MouseIsOver()) { // return to main menu
+      levelSelect = false;
+      gameOver = true;
+    }
+  }
 }
 
 void keyPressed() {
+  if(!gameOver && !paused && !levelSelect) { // in game
+    if(key == 'p') {
+      paused = true;
+    }
+  }
   //if (mk && (gameOver || paused)) { // Game Session Control (Stopped/Paused)
   //  if (key == ' ') { // SPACEBAR PRESS
   //    // start or resume game

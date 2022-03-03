@@ -3,6 +3,7 @@ void startGameScreen() { // start screen
   background(0);
   textSize(64);
   textAlign(CENTER);
+  fill(255);
   text("The Power of Controls", 350, 350);
   showStartMenu();
   pop();

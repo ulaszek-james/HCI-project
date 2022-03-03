@@ -7,6 +7,7 @@ boolean controls;
 // Game Buttons
 Button startButton;
 Button controlButton;
+Button backButton;
 
 // Game controllers
 boolean mk;
@@ -26,6 +27,7 @@ void setup() {
   
   startButton = new Button("START", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls",18, 40, 40, width/6, height/12);
+  backButton = new Button("Back",18, 40, 40, width/6, height/12);
   
   mk = true; // mouse and keyboard is default controller
   
@@ -37,7 +39,8 @@ void draw() {
   if (gameOver) {
     startGameScreen();
   } else {
-    runGame();
+    levelSelectScreen();
+    //runGame();
   }
 }
 

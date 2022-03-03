@@ -77,10 +77,26 @@ class ControlScreen {
   }
   
   void drawButtons() {
-    controllerTab.drawButton();
-    soundTab.drawButton();
-    displayTab.drawButton();
-    gameplayTab.drawButton();
+    if(controllerTab.MouseIsOver()) {
+      controllerTab.drawActiveButton();
+    } else {
+      controllerTab.drawButton();
+    }
+    if(soundTab.MouseIsOver()) {
+      soundTab.drawActiveButton();
+    } else {
+      soundTab.drawButton();
+    }
+    if(displayTab.MouseIsOver()) {
+      displayTab.drawActiveButton();
+    } else {
+      displayTab.drawButton();
+    }
+    if(gameplayTab.MouseIsOver()) {
+      gameplayTab.drawActiveButton();
+    } else {
+      gameplayTab.drawButton();
+    }
   }
   
   void setCurrentTab(String tab) {
