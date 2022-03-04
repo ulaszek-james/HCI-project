@@ -6,5 +6,10 @@ void levelSelectScreen() {
   } else {
     backButton.drawButton();
   }
+  if(level1Button.MouseIsOver()) {
+    level1Button.drawActiveButton();
+  } else {
+    level1Button.drawButton();
+  }
   pop();
 }

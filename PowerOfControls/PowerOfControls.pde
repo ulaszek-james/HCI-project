@@ -47,6 +47,7 @@ void setup() {
 
   imageMode(CENTER);
   gameOver = true;
+  levelSelect = false;
   paused = false;
   controls = false;
 
@@ -54,8 +55,8 @@ void setup() {
   right = false;
   up = false;
 
-  startButton = new Button("START", 26, 400, 400, width/3, height/10);
-  controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
+  startButton = new Button("START", 26, 235, 400, width/3, height/10);
+  controlButton = new Button("Controls", 18, 40, width-120, width/6, height/12);
   backButton = new Button("Back", 18, 40, 40, width/6, height/12);
 
   mk = true; // mouse and keyboard is default controller
@@ -90,12 +91,13 @@ void draw() {
   if (gameOver) {
     startGameScreen();
   } else {
-    levelSelectScreen();
+    // levelSelectScreen();
     runGame();
   }
 }
 
 void runGame() {
+  gameOver = false;
   background(255);
   println("posx: " + player.posX);
   println("posy: " + player.posY);
@@ -109,23 +111,26 @@ void runGame() {
   p1.display();
 
   if (intersection(player, p)) {
+    push();
     fill(255, 255, 0, 50);
     rect(0, 0, width, height);
     player.pBeg = p.x;
     player.pEnd = p.x + 200;
     player.land();
+    pop();
   }
   
   if (intersection(player, p1)) {
+    push();
     fill(255, 255, 0, 50);
     rect(0, 0, width, height);
     player.pBeg = p1.x;
     player.pEnd = p1.x + 200;
     player.land();
+    pop();
   }
   player.update();
 
-  gameOver = false;
   if (player.idling == true && player.atck == false) {
     player.drawIdle();
   } else if (player.atck == true) {
@@ -137,40 +142,36 @@ void runGame() {
       player.drawMoveBackwards();
     }
   }
+  
+  if(paused) {
+    drawPausedScreen();
+  }
 
   //player.drawAttack();
 }
 
 
-void pauseGame() {
-}
-
-void keyPressed() {
-  if ((keyPressed == true) && (key == CODED)) {
-    if (keyCode == RIGHT) {
-      right = true;
-    }
-    if (keyCode == LEFT) {
-      left = true;
-    }
-    if (keyCode == UP) {
-      up = true;
-      player.jump = true;
-    }
+void drawPausedScreen() {
+  push();
+  textSize(64);
+  fill(0);
+  text("Paused", 350, 350);
+  pop();
+  if(backButton.MouseIsOver()) {
+    backButton.drawActiveButton();
+  } else {
+    backButton.drawButton();
   }
-  if (key == 'x') {
-    //print("ATTACK");
-    player.atck = true;
+  
+  if(controlButton.MouseIsOver()) {
+    controlButton.drawActiveButton();
+  } else {
+    controlButton.drawButton();
   }
-}
-
-void keyReleased() {
-  player.idling = true;
-  delay(250);//need a delay
-  player.atck = false;
-  left = false;
-  right = false;
-  up = false;
+  
+  if(controls) {
+    controlScreen.drawWindow();
+  }
 }
 
 boolean intersection(Knight r1, Platform r2) {

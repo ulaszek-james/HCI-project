@@ -42,6 +42,10 @@ void mousePressed() {
       levelSelect = false;
       gameOver = true;
     }
+    if(level1Button.MouseIsOver()) {
+      levelSelect = false;
+      currentLevel = 1;
+    }
   }
 }
 

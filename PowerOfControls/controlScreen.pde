@@ -31,9 +31,9 @@ class ControlScreen {
     push();
     fill(255, 255, 255);
     rect(x, y, w, h, 28);
-    pop();
     drawButtons();
     drawCurrentTab();
+    pop();
   }
   
   void drawCurrentTab() {

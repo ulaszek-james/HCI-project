@@ -9,8 +9,10 @@ class Platform{
   }
   
   void display(){
+    push();
     fill(255, 0, 0);
     rect(x, y, w, h);
+    pop();
   }
   
 }
