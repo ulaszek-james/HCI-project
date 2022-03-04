@@ -19,6 +19,11 @@ Platform p2 = new Platform(567, 367);
 Platform p3 = new Platform(300, 245);
 Platform groundFlr = new Platform(100, 100); 
 
+//ENTITIES
+Entity e1 = new Entity(400, 610);
+Entity e2 = new Entity(300, 215);
+float entityRange = 0;
+
 Platform target1 = new Platform(100, 100);
 Platform target2 = new Platform(100, 100);
 
@@ -117,8 +122,13 @@ void runGame() {
   p1.display(color(129, 133, 137));
   p2.display(color(129, 133, 137));
   p3.display(color(129, 133, 137));
-  target1.display(color(255, 0, 0));
   
+  if(e1.e_health > 0){
+    e1.drawEnt();
+  }
+  if(e2.e_health > 0){
+    e2.drawEnt();
+  }
  
 
   if (intersection(player, p)) {
@@ -161,6 +171,8 @@ void runGame() {
     player.connected = false;
   }
 
+  e1.moveEnt(1.5);
+  e2.moveEnt(1.0);
   player.update();
 
   gameOver = false;
