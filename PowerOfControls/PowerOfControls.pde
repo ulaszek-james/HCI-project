@@ -15,6 +15,12 @@ Knight player = new Knight();
 Platform p = new Platform(100, 600);
 Platform p1 = new Platform(350, 550);
 
+Entity e1 = new Entity(400, 610);
+Entity e2 = new Entity(200, 570);
+
+// counter to control entity movement
+float entityRange = 0;
+
 // Game controllers
 boolean mk;
 
@@ -102,6 +108,9 @@ void runGame() {
   println("posx: " + player.posX);
   println("posy: " + player.posY);
   println("");
+  
+  println("Entity dist: " + (player.posX-e1.e_posX));
+  println("Entity health: " + e1.e_health);
 
   //ground
   for (int i = 0; i < 700; i+=100) {
@@ -109,6 +118,9 @@ void runGame() {
   }
   p.display();
   p1.display();
+  
+  e1.drawEnt();
+  e2.drawEnt();
 
   if (intersection(player, p)) {
     push();
@@ -142,11 +154,15 @@ void runGame() {
       player.drawMoveBackwards();
     }
   }
-  
+    
   if(paused) {
     drawPausedScreen();
   }
-
+  
+  // Move entities
+  e1.moveEnt(1.5);
+  e2.moveEnt(1);
+  
   //player.drawAttack();
 }
 
