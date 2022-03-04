@@ -10,6 +10,8 @@ public class Knight {
   boolean atck;
   boolean connected;
   float gravity;
+  float pBeg;
+  float pEnd;
 
   Knight() {
     posX = 50;
@@ -23,22 +25,23 @@ public class Knight {
     atck = false;
 
     connected = false;
-    gravity = 0.6;
+    gravity = 0.4;
   }
 
   void land(){
     speedY = 0;
     connected = true;
+    jump = false;
   }
   void update() {
     if (left) {
       player.direction = false;
-      speedX = -1;
+      speedX = -1.25;
       player.idling = false;
     }
     if (right) {
       player.direction = true;
-      speedX = 1;
+      speedX = 1.25;
       player.idling = false;
     }
     if(!left && !right){
@@ -48,15 +51,26 @@ public class Knight {
     if(left && right){
       speedX = 0;
     }
-    if (up) {
-      speedY = -1;
+    if (jump) {
+      if (speedY < 4) speedY += gravity;
+      if (posY >= 600) {
+        land();
+      }
     }
-    //if (connected == false){
-    //  speedY += gravity;
-    //}
-    if(posY > 750){
-      posY = 0;
-      speedY = 0;
+    if (up && connected) {
+      jump();
+      speedY = -6;
+    }
+    if (posX > pEnd || posX < pBeg) {
+      jump = true;
+    }
+    if (posX < 0) {
+      posX = 750;
+      speedX = 0;
+    }
+    if(posX > 750) {
+      posX = 0;
+      speedX = 0;
     }
     
     posX += speedX;
@@ -98,5 +112,7 @@ public class Knight {
   }
 
   void jump() {
+    jump = true;
+    connected = false;
   }
 }

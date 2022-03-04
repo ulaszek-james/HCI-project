@@ -13,6 +13,7 @@ Button backButton;
 
 Knight player = new Knight();
 Platform p = new Platform(100, 600);
+Platform p1 = new Platform(350, 550);
 
 // Game controllers
 boolean mk;
@@ -105,10 +106,21 @@ void runGame() {
     image(ground, i, 750);
   }
   p.display();
+  p1.display();
 
   if (intersection(player, p)) {
     fill(255, 255, 0, 50);
     rect(0, 0, width, height);
+    player.pBeg = p.x;
+    player.pEnd = p.x + 200;
+    player.land();
+  }
+  
+  if (intersection(player, p1)) {
+    fill(255, 255, 0, 50);
+    rect(0, 0, width, height);
+    player.pBeg = p1.x;
+    player.pEnd = p1.x + 200;
     player.land();
   }
   player.update();
@@ -171,7 +183,7 @@ boolean intersection(Knight r1, Platform r2) {
   //combined half-widths
   float combinedHalfW = r1.w/2 + r2.w/2;
   //combined half-heights
-  float combinedHalfH = r1.h/2 + r2.h/2;
+  float combinedHalfH = r1.h/2 + r2.h/2 + 20; // added 20 to appear on top of the platform
 
   //check for intersection
   if (abs(distanceX) < combinedHalfW) {
