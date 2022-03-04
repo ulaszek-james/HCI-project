@@ -24,9 +24,6 @@ Entity e1 = new Entity(400, 610);
 Entity e2 = new Entity(300, 215);
 float entityRange = 0;
 
-Platform target1 = new Platform(100, 100);
-Platform target2 = new Platform(100, 100);
-
 // Game controllers
 boolean mk;
 
@@ -34,6 +31,7 @@ boolean mk;
 ControlScreen controlScreen;
 
 //sprites
+PImage bckgrnd;
 PImage knightIdleSprite;
 PImage[] KI = new PImage[10];
 PImage knightAtckSprite;
@@ -54,9 +52,8 @@ void settings() {
 
 void setup() {
   background(0);
+  bckgrnd = loadImage("temp.jpg");
   groundFlr.grndFloor(0, 637);
-  target1.target(300, 200);
-  //target2.target();
 
   imageMode(CENTER);
   gameOver = true;
@@ -108,7 +105,7 @@ void draw() {
 }
 
 void runGame() {
-  background(255);
+  background(bckgrnd);
   groundFlr.display(color(129, 133, 137));
   //println("posx: " + player.posX);
   //println("posy: " + player.posY);
@@ -161,13 +158,7 @@ void runGame() {
     player.pBeg = groundFlr.x;
     player.pEnd = groundFlr.x + 200;
     player.land(groundFlr.y);
-  } else if (intersection(player, target1)) {
-    //fill(255, 255, 0, 50);
-    //rect(0, 0, width, height);
-    player.pBeg = target1.x;
-    player.pEnd = target1.x + 200;
-    player.land(target1.y);
-  }else {
+  } else {
     player.connected = false;
   }
 
