@@ -6,12 +6,12 @@ public class Knight {
   float speedY;
   boolean idling;
   boolean direction;
-  boolean jump;
   boolean atck;
   boolean connected;
   float gravity;
   float pBeg;
   float pEnd;
+  int numJumps;
 
   Knight() {
     posX = 50;
@@ -20,62 +20,61 @@ public class Knight {
 
     //true if right, false is left
     direction = true;
-    
-    jump = false;
     atck = false;
-
-    connected = false;
-    gravity = 0.4;
-  }
-
-  void land(){
-    speedY = 0;
     connected = true;
-    jump = false;
+    gravity = 0.8;
+
+    numJumps = 0;
   }
+
+  void land(float destinationY) {
+    connected = true;
+    speedY = 0;
+    numJumps = 0;
+    posY = destinationY - 38;
+  }
+
   void update() {
-    if (left) {
+    if (left && newletter) {
       player.direction = false;
-      speedX = -1.25;
+      speedX = -2;
       player.idling = false;
     }
-    if (right) {
+    if (right && newletter) {
       player.direction = true;
-      speedX = 1.25;
+      speedX = 2;
       player.idling = false;
     }
-    if(!left && !right){
-      speedX = 0;
-      speedY = 0;
-    }
-    if(left && right){
+    if (!left && !right && !newletter) {
       speedX = 0;
     }
-    if (jump) {
-      if (speedY < 4) speedY += gravity;
-      if (posY >= 600) {
-        land();
+    if (left && right && newletter) {
+      speedX = 0;
+    }
+    if (up) {
+      if (connected && newletter) {
+        speedY = -15;
+        connected = false;
       }
     }
-    if (up && connected) {
-      jump();
-      speedY = -6;
-    }
-    if (posX > pEnd || posX < pBeg) {
-      jump = true;
+
+
+    if (connected == false) {
+      speedY += gravity; //apply gravity when not on platform
+    } else {
+      speedY = 0;
     }
     if (posX < 0) {
       posX = 750;
       speedX = 0;
     }
-    if(posX > 750) {
+    if (posX > 750) {
       posX = 0;
       speedX = 0;
     }
-    
+
     posX += speedX;
     posY += speedY;
-    //posY = 570;
   }
 
   void drawIdle() {
@@ -109,10 +108,5 @@ public class Knight {
       image(KA[(frameCount / 5) % 4], -posX, posY);
       popMatrix();
     }
-  }
-
-  void jump() {
-    jump = true;
-    connected = false;
   }
 }

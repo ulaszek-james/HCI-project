@@ -12,8 +12,9 @@ void mousePressed() {
     }
     if (controlButton.MouseIsOver()) { // open Control Window
       controls = true;
+      println("TEST");
     }
-    if (!controlScreen.MouseIsOver()) {
+    if (!controlScreen.MouseIsOver() && !controlButton.MouseIsOver()) {
       controls = false;
     } else {
       if (controls && controlScreen.controllerTab.MouseIsOver()) {
@@ -43,78 +44,3 @@ void mousePressed() {
     }
   }
 }
-
-void keyPressed() {
-  if (!gameOver && !paused) {
-    System.out.println(paused);
-    if ((keyPressed == true) && (key == CODED)) {
-      if (keyCode == RIGHT) {
-        right = true;
-      }
-      if (keyCode == LEFT) {
-        left = true;
-      }
-      if (keyCode == UP) {
-        up = true;
-        player.jump = true;
-      }
-    }
-    if (key == 'x') {
-      //print("ATTACK");
-      player.atck = true;
-    }
-  }
-}
-
-void keyReleased() {
-  if (!gameOver && !paused) {
-    if (key == 'p') {
-      System.out.println("paused");
-      paused = true;
-      return;
-    }
-    player.idling = true;
-    delay(250);//need a delay
-    player.atck = false;
-    left = false;
-    right = false;
-    up = false;
-  }
-  if (paused) {
-    if (key == 'p') {
-      paused = false;
-    }
-  }
-}
-
-//void keyPressed() {
-
-//  //if(!gameOver && !paused && !levelSelect) { // in game
-//     if((keyPressed == true) && (key == CODED)){
-//       if(key == 'p') {
-//         paused = true;
-//       }
-//       if(key == RIGHT){
-//         player.posX += 1;
-//       }
-//    }
-//}
-//if (mk && (gameOver || paused)) { // Game Session Control (Stopped/Paused)
-//  if (key == ' ') { // SPACEBAR PRESS
-//    // start or resume game
-//    if (gameOver) { // game over or not started
-//      gameOver = false; // start game
-//      System.out.println("starting game");
-//    } else if (paused) {
-//      paused = false; // resume game
-//    }
-//  }
-
-//if (key == 'c') { // OPEN/CLOSE CONTROLS
-//  if(controls == false) {
-//    controls = true;
-//  } else {
-//    controls = false;
-//  }
-//}
-//}

@@ -3,8 +3,9 @@ boolean gameOver;
 boolean levelSelect;
 boolean paused;
 boolean controls;
+boolean newletter;
 
-boolean left, right, up;
+boolean left, right, up, down;
 
 // Game Buttons
 Button startButton;
@@ -14,6 +15,12 @@ Button backButton;
 Knight player = new Knight();
 Platform p = new Platform(100, 600);
 Platform p1 = new Platform(350, 550);
+Platform p2 = new Platform(567, 367);
+Platform p3 = new Platform(300, 245);
+Platform groundFlr = new Platform(100, 100); 
+
+Platform target1 = new Platform(100, 100);
+Platform target2 = new Platform(100, 100);
 
 // Game controllers
 boolean mk;
@@ -36,18 +43,18 @@ int h = 80;//tile height
 
 PImage ground;
 
-
-
 void settings() {
   size(700, 700);
 }
 
 void setup() {
   background(0);
+  groundFlr.grndFloor(0, 637);
+  target1.target(300, 200);
+  //target2.target();
 
   imageMode(CENTER);
   gameOver = true;
-  levelSelect = false;
   paused = false;
   controls = false;
 
@@ -55,15 +62,14 @@ void setup() {
   right = false;
   up = false;
 
-  startButton = new Button("START", 26, 235, 400, width/3, height/10);
-  controlButton = new Button("Controls", 18, 40, width-120, width/6, height/12);
+  startButton = new Button("START", 26, 400, 400, width/3, height/10);
+  controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
   backButton = new Button("Back", 18, 40, 40, width/6, height/12);
 
   mk = true; // mouse and keyboard is default controller
-
   controlScreen = new ControlScreen(); 
-
   ground = loadImage("ground.jpg");
+
   //sprites
   knightIdleSprite = loadImage("_Idle.png");
   for (int i = 0; i<KI.length; i++) {
@@ -91,46 +97,73 @@ void draw() {
   if (gameOver) {
     startGameScreen();
   } else {
-    // levelSelectScreen();
+    levelSelectScreen();
     runGame();
   }
 }
 
 void runGame() {
-  gameOver = false;
   background(255);
-  println("posx: " + player.posX);
-  println("posy: " + player.posY);
-  println("");
+  groundFlr.display(color(129, 133, 137));
+  //println("posx: " + player.posX);
+  //println("posy: " + player.posY);
+  //println("");
 
   //ground
   for (int i = 0; i < 700; i+=100) {
     image(ground, i, 750);
   }
-  p.display();
-  p1.display();
+  p.display(color(129, 133, 137));
+  p1.display(color(129, 133, 137));
+  p2.display(color(129, 133, 137));
+  p3.display(color(129, 133, 137));
+  target1.display(color(255, 0, 0));
+  
+ 
 
   if (intersection(player, p)) {
-    push();
-    fill(255, 255, 0, 50);
-    rect(0, 0, width, height);
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
     player.pBeg = p.x;
     player.pEnd = p.x + 200;
-    player.land();
-    pop();
-  }
-  
-  if (intersection(player, p1)) {
-    push();
-    fill(255, 255, 0, 50);
-    rect(0, 0, width, height);
+    player.land(p.y);
+  } else if (intersection(player, p1)) {
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
     player.pBeg = p1.x;
     player.pEnd = p1.x + 200;
-    player.land();
-    pop();
+    player.land(p1.y);
+  } else if (intersection(player, p2)) {
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
+    player.pBeg = p2.x;
+    player.pEnd = p2.x + 200;
+    player.land(p2.y);
+  } else if (intersection(player, p3)) {
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
+    player.pBeg = p3.x;
+    player.pEnd = p3.x + 200;
+    player.land(p3.y);
+  } else if (intersection(player, groundFlr)) {
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
+    player.pBeg = groundFlr.x;
+    player.pEnd = groundFlr.x + 200;
+    player.land(groundFlr.y);
+  } else if (intersection(player, target1)) {
+    //fill(255, 255, 0, 50);
+    //rect(0, 0, width, height);
+    player.pBeg = target1.x;
+    player.pEnd = target1.x + 200;
+    player.land(target1.y);
+  }else {
+    player.connected = false;
   }
+
   player.update();
 
+  gameOver = false;
   if (player.idling == true && player.atck == false) {
     player.drawIdle();
   } else if (player.atck == true) {
@@ -142,14 +175,11 @@ void runGame() {
       player.drawMoveBackwards();
     }
   }
-  
-  if(paused) {
+
+  if (paused) {
     drawPausedScreen();
   }
-
-  //player.drawAttack();
 }
-
 
 void drawPausedScreen() {
   push();
@@ -157,27 +187,76 @@ void drawPausedScreen() {
   fill(0);
   text("Paused", 350, 350);
   pop();
-  if(backButton.MouseIsOver()) {
+  if (backButton.MouseIsOver()) {
     backButton.drawActiveButton();
   } else {
     backButton.drawButton();
   }
-  
-  if(controlButton.MouseIsOver()) {
+
+  if (controlButton.MouseIsOver()) {
     controlButton.drawActiveButton();
   } else {
     controlButton.drawButton();
   }
-  
-  if(controls) {
+
+  if (controls) {
     controlScreen.drawWindow();
+  }
+}
+
+void keyPressed() {
+  if (!paused) {
+    if ((keyPressed == true) && (key == CODED)) {
+      if (keyCode == RIGHT) {
+        right = true;
+        newletter = true;
+      }
+      if (keyCode == LEFT) {
+        left = true;
+        newletter = true;
+      }
+      if (keyCode == UP) {
+        up = true;
+        newletter = true;
+      }
+    }
+    if (key == 'x') {
+      newletter = true;
+      player.atck = true;
+    }
+    if (key == 'p') {
+      newletter = true;
+      if (paused == false) {
+        paused = true;
+      }
+    }
+  }
+  else{
+    if (key == 'p') {
+      newletter = true;
+      if (paused == true) {
+        paused = false;
+      }
+    }
+  }
+}
+
+void keyReleased() {
+  player.idling = true;
+  //delay(250);//need a delay
+  player.atck = false;
+  left = false;
+  right = false;
+  up = false;
+  if (keyCode == LEFT || keyCode == RIGHT || keyCode == UP) {
+    newletter = false;
   }
 }
 
 boolean intersection(Knight r1, Platform r2) {
   //distance on x axis
   float distanceX = (r1.posX + r1.w/2) - (r2.x + r2.w/2);
-  println("distance between bar: " + distanceX);
+  //println("distance between bar: " + distanceX);
   //distance on y axis
   float distanceY = (r1.posY + r1.h/2) - (r2.y + r2.h/2);
 
