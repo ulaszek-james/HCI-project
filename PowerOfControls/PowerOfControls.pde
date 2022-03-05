@@ -22,7 +22,6 @@ Platform groundFlr = new Platform(100, 100);
 //ENTITIES
 Entity e1 = new Entity(400, 610);
 Entity e2 = new Entity(300, 215);
-float entityRange = 0;
 
 // Game controllers
 boolean mk;
