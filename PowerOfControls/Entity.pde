@@ -11,6 +11,7 @@ public class Entity {
   float e_pBeg;
   float e_pEnd;
   int e_health;
+  int MAX_HEALTH;
   float step = 0.5; 
   float start;
   
@@ -26,6 +27,7 @@ public class Entity {
     e_gravity = 0.9;
     
     e_health = 30;
+    MAX_HEALTH = e_health;
   }
   
   void drawEnt(){
@@ -46,9 +48,9 @@ public class Entity {
   //
   void drawHealthBar(){
     // red healthbar at 25% or less health
-    if (e_health <= e_health*0.25) { fill(255, 0, 0); }
+    if (e_health <= MAX_HEALTH*0.25) { fill(255, 0, 0); }
     // yellow healthbar at 50% or less health
-    else if (e_health <= e_health*0.50) { fill(255, 200, 0); }
+    else if (e_health <= MAX_HEALTH*0.50) { fill(255, 200, 0); }
     // green healthbar otherwise
     else { fill(0, 255, 0); }
     noStroke();
