@@ -14,6 +14,7 @@ public class Entity {
   int MAX_HEALTH;
   float step = 0.5; 
   float start;
+  boolean dead;
   
   Entity(float e_x, float e_y) {
     e_posX = e_x;
@@ -28,6 +29,7 @@ public class Entity {
     
     e_health = 30;
     MAX_HEALTH = e_health;
+    dead = false;
   }
   
   void drawEnt(){

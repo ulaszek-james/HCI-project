@@ -31,9 +31,9 @@ class ControlScreen {
     push();
     fill(255, 255, 255);
     rect(x, y, w, h, 28);
+    pop();
     drawButtons();
     drawCurrentTab();
-    pop();
   }
   
   void drawCurrentTab() {
@@ -44,6 +44,13 @@ class ControlScreen {
         textSize(16);
         text("Controller", x+(w/10)+22, (y+75) + (h/10));
         line( x+22, (y+85) + (h/10), w, (y+85) + (h/10));
+        text("KeyBoard Movement:", x+(w/5)+22, (y+125) + (h/10));
+        text("Forwards:          RIGHT ARROW", x+(w/3)+22, (y+165) + (h/10));
+        text("Backwards:         LEFT ARROW", x+(w/3)+22, (y+205) + (h/10));
+        text("Jump:              UP ARROW", x+(w/3)+22, (y+245) + (h/10));
+        text("Attack:            'X' Key", x+(w/3)+22, (y+285) + (h/10));
+        text("TO PAUSE PRESS P", x+(w/2)+22, (y+325) + (h/10));
+        text("Click anywhere outside of box to return.", x+(w/2)+22, (y+400) + (h/10));
         pop();
         break;
         
