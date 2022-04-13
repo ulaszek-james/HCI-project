@@ -39,12 +39,15 @@ public class Entity {
     drawHealthBar();
     
     // entity is within sword animation distance & player is facing entity 
-    float dist = player.posX - e_posX;
-    if((dist > -60 && dist < 0 && player.direction == true && player.atck == true) ||
-        (dist < 60 && dist > 0 && player.direction == false && player.atck == true)) {
-      e_health--;
-      if(e_health < 0) { e_health = 0;}
-    }
+    float distX = player.posX - e_posX;
+    float distY = player.posY - e_posY;
+
+    if((distX > -60 && distX < 0 && distY >-20 && distY < 20 && player.direction == true && player.atck == true) || 
+        (distX < 60 && distX > 0 && distY >-20 && distY < 20 && player.direction == false && player.atck == true)) 
+      {
+        e_health--;
+        if(e_health < 0) { e_health = 0;}
+      }
   }
   
   //
