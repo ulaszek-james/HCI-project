@@ -6,6 +6,7 @@ boolean controls;
 boolean newletter;
 
 boolean left, right, up, down;
+boolean swordEquipped;
 
 // Game Buttons
 Button startButton;
@@ -22,6 +23,7 @@ Platform groundFlr = new Platform(100, 100);
 //ENTITIES
 Entity e1 = new Entity(400, 610);
 Entity e2 = new Entity(300, 215);
+float entityRange = 0;
 
 // Game controllers
 boolean mk;
@@ -35,6 +37,8 @@ PImage knightIdleSprite;
 PImage[] KI = new PImage[10];
 PImage knightAtckSprite;
 PImage[] KA = new PImage[4];
+PImage knightSpellSprite;
+PImage[] KS = new PImage[4];
 PImage knightForwardSprite;
 PImage[] KF = new PImage[10];
 PImage knightBackwardsSprite;
@@ -51,6 +55,7 @@ void settings() {
 
 void setup() {
   background(0);
+  swordEquipped = true;
   bckgrnd = loadImage("temp.jpg");
   groundFlr.grndFloor(0, 637);
 
@@ -77,6 +82,13 @@ void setup() {
     int tx = floor(i%cols)*w;
     int ty = floor(i/cols)*h;
     KI[i]=knightIdleSprite.get(tx, ty, w, h);
+  }
+  
+  knightSpellSprite = loadImage("_Attack_Spell.png");
+    for (int i = 0; i<KS.length; i++) {
+    int tx = floor(i%cols)*w;
+    int ty = floor(i/cols)*h;
+    KS[i]=knightSpellSprite.get(tx, ty, w, h);
   }
 
   knightForwardSprite = loadImage("_Run.png");
@@ -169,7 +181,11 @@ void runGame() {
   if (player.idling == true && player.atck == false) {
     player.drawIdle();
   } else if (player.atck == true) {
-    player.drawAttack();
+    if(swordEquipped)
+      player.drawAttack();
+    //else if spell is equipped
+    else
+      player.drawSpell();
   } else {
     if (player.direction == true) {
       player.drawMoveForward();
@@ -213,11 +229,11 @@ void keyPressed() {
         right = true;
         newletter = true;
       }
-      if (keyCode == LEFT) {
+      else if (keyCode == LEFT) {
         left = true;
         newletter = true;
       }
-      if (keyCode == UP) {
+      else if (keyCode == UP) {
         up = true;
         newletter = true;
       }
@@ -230,6 +246,14 @@ void keyPressed() {
       newletter = true;
       if (paused == false) {
         paused = true;
+      }
+    }
+    if(key == '1'){
+      if(swordEquipped){
+        swordEquipped = false;
+      }
+      else{
+        swordEquipped = true;
       }
     }
   }
@@ -268,8 +292,8 @@ boolean intersection(Knight r1, Platform r2) {
   float combinedHalfH = r1.h/2 + r2.h/2 + 20; // added 20 to appear on top of the platform
 
   //check for intersection
-  if (abs(distanceX) < combinedHalfW) {
-    if (abs(distanceY) < combinedHalfH) {
+  if (abs(distanceX) <= combinedHalfW) {
+    if (abs(distanceY) <= combinedHalfH) {
       return true;
     }
   }

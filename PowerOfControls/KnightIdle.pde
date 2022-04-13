@@ -53,7 +53,7 @@ public class Knight {
     }
     if (up) {
       if (connected && newletter) {
-        speedY = -15;
+        speedY = -10;
         connected = false;
       }
     }
@@ -106,6 +106,17 @@ public class Knight {
       pushMatrix();
       scale(-1.0, 1.0);
       image(KA[(frameCount / 5) % 4], -posX, posY);
+      popMatrix();
+    }
+  }
+  
+  void drawSpell(){
+  if (direction == true) {
+      image(KS[(frameCount / 5) % 4], posX, posY);
+    } else {
+      pushMatrix();
+      scale(-1.0, 1.0);
+      image(KS[(frameCount / 5) % 4], -posX, posY);
       popMatrix();
     }
   }
