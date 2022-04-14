@@ -28,5 +28,8 @@ class Platform {
     fill(col);
     rect(x, y, w, h);
     x += speed;
+    if(x > 700){
+      x = -50;
+    }
   }
 }

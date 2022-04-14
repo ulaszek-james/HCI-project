@@ -173,7 +173,7 @@ void runGame() {
   p1.display(color(129, 133, 137), 0);
   p2.display(color(129, 133, 137), 0);
   p3.display(color(129, 133, 137), 0);
-  p4.display(color(129, 133, 137), 0.1);
+  p4.display(color(129, 133, 137), 1);
 
   if (e1.e_health > 0) {
     e1.drawEnt();
