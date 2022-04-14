@@ -87,7 +87,7 @@ void setup() {
   startB_button = new Button("START B", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
   backButton = new Button("Back", 18, 40, width-120, width/6, height/12);
-  
+
   //BOX INVENTORY BUTTONS
   swordButton = new Button("Equip SWORD", 26, 70, 400, width/3, height/10);
   spellButton = new Button("Equip SPELL", 26, 400, 400, width/3, height/10);
@@ -137,10 +137,9 @@ void draw() {
 }
 
 void runGame() {
-  if(!variant){
+  if (!variant) {
     background(bckgrnd);
-  }
-  else if(variant){
+  } else if (variant) {
     background(bckgrndB);
   }
   groundFlr.display(color(129, 133, 137));
@@ -204,14 +203,12 @@ void runGame() {
   player.update();
 
   gameOver = false;
-  if (player.idling == true && player.atck == false) {
+  if (player.idling == true && player.atck == false && player.lngatck == false) {
     player.drawIdle();
   } else if (player.atck == true) {
-    if (swordEquipped)
-      player.drawAttack();
-    //else if spell is equipped
-    else
-      player.drawSpell();
+    player.drawAttack();
+  } else if (player.lngatck == true) {
+    player.drawSpell();
   } else {
     if (player.direction == true) {
       player.drawMoveForward();
@@ -223,12 +220,11 @@ void runGame() {
   if (paused) {
     drawPausedScreen();
   }
-  
-  if(inventoryOpen){
-    if(variant){
+
+  if (inventoryOpen) {
+    if (variant) {
       drawInventoryWheel();
-    }
-    else if(!variant){
+    } else if (!variant) {
       drawInventoryBar();
     }
   }
@@ -249,14 +245,14 @@ void drawInventoryBar() {
   text("Inventory (V.A.)", 150, 50);
   pop();
   //INVENTORY STUFF box... just buttons I guess
-  if(swordButton.MouseIsOver()){
+  if (swordButton.MouseIsOver()) {
     swordButton.drawActiveButton();
-  } else{
+  } else {
     swordButton.drawButton();
   }
-  if(spellButton.MouseIsOver()){
+  if (spellButton.MouseIsOver()) {
     spellButton.drawActiveButton();
-  } else{
+  } else {
     spellButton.drawButton();
   }
 }
@@ -300,7 +296,10 @@ void keyPressed() {
     }
     if (key == 'x') {
       newletter = true;
-      player.atck = true;
+      if (swordEquipped)
+        player.atck = true;
+      else if(!swordEquipped)
+        player.lngatck = true;
     }
     if (key == 'p') {
       newletter = true;
@@ -308,11 +307,11 @@ void keyPressed() {
         paused = true;
       }
     }
-    if(key == 'i'){
+    if (key == 'i') {
       newletter = true;
-      if(inventoryOpen == false){
+      if (inventoryOpen == false) {
         inventoryOpen = true;
-      }else{
+      } else {
         inventoryOpen = false;
       }
     }
@@ -322,8 +321,7 @@ void keyPressed() {
       if (paused == true) {
         paused = false;
       }
-    }
-    else if (key == 'i') {
+    } else if (key == 'i') {
       newletter = true;
       if (inventoryOpen == true) {
         inventoryOpen = false;
@@ -336,6 +334,7 @@ void keyReleased() {
   player.idling = true;
   //delay(250);//need a delay
   player.atck = false;
+  player.lngatck = false;
   left = false;
   right = false;
   up = false;

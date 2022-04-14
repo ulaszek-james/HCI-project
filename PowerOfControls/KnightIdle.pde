@@ -7,6 +7,7 @@ public class Knight {
   boolean idling;
   boolean direction;
   boolean atck;
+  boolean lngatck;
   boolean connected;
   float gravity;
   float pBeg;
@@ -53,7 +54,7 @@ public class Knight {
     }
     if (up) {
       if (connected && newletter) {
-        speedY = -10;
+        speedY = -15;
         connected = false;
       }
     }
