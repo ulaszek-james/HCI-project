@@ -20,6 +20,7 @@ void mousePressed() {
         return;
       }
     }
+
     if (controlButton.MouseIsOver()) { // open Control Window
       controls = true;
       println("TEST");
@@ -43,6 +44,21 @@ void mousePressed() {
         controlScreen.gameplayTab.drawClickedButton();
         controlScreen.setCurrentTab("gameplay");
       }
+    }
+  }
+
+  if (inventoryOpen) {
+    if (swordButton.MouseIsOver()) {
+      swordButton.drawClickedButton();
+      println("equipping sword");
+      swordEquipped = true;
+      inventoryOpen = false;
+    }
+    if (spellButton.MouseIsOver()) {
+      spellButton.drawClickedButton();
+      println("equipping spell");
+      swordEquipped = false;
+      inventoryOpen = false;
     }
   }
 

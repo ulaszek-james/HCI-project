@@ -20,6 +20,10 @@ Button startB_button;
 Button controlButton;
 Button backButton;
 
+//FOR BOX INVENTORY
+Button swordButton;
+Button spellButton;
+
 Knight player = new Knight();
 Platform p = new Platform(100, 600);
 Platform p1 = new Platform(350, 550);
@@ -83,6 +87,10 @@ void setup() {
   startB_button = new Button("START B", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
   backButton = new Button("Back", 18, 40, width-120, width/6, height/12);
+  
+  //BOX INVENTORY BUTTONS
+  swordButton = new Button("Equip SWORD", 26, 70, 400, width/3, height/10);
+  spellButton = new Button("Equip SPELL", 26, 400, 400, width/3, height/10);
 
   mk = true; // mouse and keyboard is default controller
   controlScreen = new ControlScreen(); 
@@ -241,6 +249,16 @@ void drawInventoryBar() {
   text("Inventory (V.A.)", 150, 50);
   pop();
   //INVENTORY STUFF box... just buttons I guess
+  if(swordButton.MouseIsOver()){
+    swordButton.drawActiveButton();
+  } else{
+    swordButton.drawButton();
+  }
+  if(spellButton.MouseIsOver()){
+    spellButton.drawActiveButton();
+  } else{
+    spellButton.drawButton();
+  }
 }
 
 void drawPausedScreen() {
@@ -296,13 +314,6 @@ void keyPressed() {
         inventoryOpen = true;
       }else{
         inventoryOpen = false;
-      }
-    }
-    if (key == '1') {
-      if (swordEquipped) {
-        swordEquipped = false;
-      } else {
-        swordEquipped = true;
       }
     }
   } else {
