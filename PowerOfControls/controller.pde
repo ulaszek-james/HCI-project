@@ -43,7 +43,7 @@ void releaseDPad(float x, float y) {
 }
 
 void pressA() {
-  if (gameOver) { // at start screen
+  if (gameOver && !controls) { // at start screen
     gameOver = false;
     variant = false;
   } 
@@ -62,7 +62,7 @@ void releaseA() {
 }
 
 void pressB() {
-  if (gameOver) {
+  if (gameOver && !controls) {
     gameOver = false;
     variant = true;
   } else if (!gameOver && !paused) {
@@ -73,6 +73,9 @@ void pressB() {
     else if (!swordEquipped && !player.lngatck) {
       player.lngatck = true;
     }
+  } else if(!gameOver && paused) {
+    gameOver = true;
+    paused = false;
   }
 }
 
@@ -97,6 +100,12 @@ void leftToggle() {
 void rightToggle() {
   if (!gameOver) {
     swordEquipped = !swordEquipped;
+  }
+}
+
+void controlToggle() {
+  if(paused || gameOver) {
+    controls = !controls;
   }
 }
 

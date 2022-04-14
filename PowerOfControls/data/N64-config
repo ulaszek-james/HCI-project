@@ -1,7 +1,8 @@
 N64 Controller
 dPad	Control Movement	2	HAT	cooliehat: Hat Switch	0	1.0	0.0
-L	Inventory Toggle L	1	BUTTON	Button 4	0	0.0	0.0
-R	Inventory Toggle R	1	BUTTON	Button 5	0	0.0	0.0
+C	Control Menu Toggle	1	BUTTON	Button 0	0	0.0	0.0
+L	Inventory Toggle	1	BUTTON	Button 4	0	0.0	0.0
+R	Inventory Toggle	1	BUTTON	Button 5	0	0.0	0.0
 A	Jump	1	BUTTON	Button 6	0	0.0	0.0
-B	Attack	1	BUTTON	Button 8	0	0.0	0.0
+B	Back/Attack	1	BUTTON	Button 8	0	0.0	0.0
 Start	Pause Button	1	BUTTON	Button 9	0	0.0	0.0
