@@ -2,6 +2,7 @@
 boolean gameOver;
 boolean levelSelect;
 boolean paused;
+boolean inventoryOpen;
 boolean controls;
 boolean newletter;
 
@@ -70,6 +71,7 @@ void setup() {
   imageMode(CENTER);
   gameOver = true;
   paused = false;
+  inventoryOpen = false;
   controls = false;
 
   left = false;
@@ -213,6 +215,32 @@ void runGame() {
   if (paused) {
     drawPausedScreen();
   }
+  
+  if(inventoryOpen){
+    if(variant){
+      drawInventoryWheel();
+    }
+    else if(!variant){
+      drawInventoryBar();
+    }
+  }
+}
+
+void drawInventoryWheel() {
+  push();
+  textSize(30);
+  fill(0);
+  text("Inventory (V.B.)", 150, 50);
+  pop();
+  //INVENTORY STUFF wheel version
+}
+void drawInventoryBar() {
+  push();
+  textSize(30);
+  fill(0);
+  text("Inventory (V.A.)", 150, 50);
+  pop();
+  //INVENTORY STUFF box... just buttons I guess
 }
 
 void drawPausedScreen() {
@@ -262,6 +290,14 @@ void keyPressed() {
         paused = true;
       }
     }
+    if(key == 'i'){
+      newletter = true;
+      if(inventoryOpen == false){
+        inventoryOpen = true;
+      }else{
+        inventoryOpen = false;
+      }
+    }
     if (key == '1') {
       if (swordEquipped) {
         swordEquipped = false;
@@ -274,6 +310,12 @@ void keyPressed() {
       newletter = true;
       if (paused == true) {
         paused = false;
+      }
+    }
+    else if (key == 'i') {
+      newletter = true;
+      if (inventoryOpen == true) {
+        inventoryOpen = false;
       }
     }
   }

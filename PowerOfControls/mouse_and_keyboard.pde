@@ -6,6 +6,7 @@ void mousePressed() {
       if (!controls && startA_button.MouseIsOver()) {
         startA_button.drawClickedButton();
         variant = false;
+        inventoryOpen = false;
         gameOver = false; // start game
         //levelSelect = true; // go to level select screen
         return;
@@ -13,6 +14,7 @@ void mousePressed() {
       if (!controls && startB_button.MouseIsOver()) {
         startB_button.drawClickedButton();
         variant = true;
+        inventoryOpen = false;
         gameOver = false; // start game
         //levelSelect = true; // go to level select screen
         return;
@@ -48,6 +50,7 @@ void mousePressed() {
     if (backButton.MouseIsOver()) { // return to main menu
       levelSelect = false;
       paused = false;
+      inventoryOpen = false;
       gameOver = true;
     }
   }
