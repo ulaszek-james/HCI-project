@@ -1,68 +1,5 @@
 // File that handles mouse and keyboard controller
 
-void keyPressed() {
-  if (!paused) {
-    if ((keyPressed == true) && (key == CODED)) {
-      if (keyCode == RIGHT) {
-        right = true;
-        newletter = true;
-      } else if (keyCode == LEFT) {
-        left = true;
-        newletter = true;
-      } else if (keyCode == UP) {
-        up = true;
-        newletter = true;
-      }
-    }
-    if (key == 'x') {
-      newletter = true;
-      if (swordEquipped)
-        player.atck = true;
-      else if(!swordEquipped)
-        player.lngatck = true;
-    }
-    if (key == 'p') {
-      newletter = true;
-      if (paused == false) {
-        paused = true;
-      }
-    }
-    if (key == 'i') {
-      newletter = true;
-      if (inventoryOpen == false) {
-        inventoryOpen = true;
-      } else {
-        inventoryOpen = false;
-      }
-    }
-  } else {
-    if (key == 'p') {
-      newletter = true;
-      if (paused == true) {
-        paused = false;
-      }
-    } else if (key == 'i') {
-      newletter = true;
-      if (inventoryOpen == true) {
-        inventoryOpen = false;
-      }
-    }
-  }
-}
-
-void keyReleased() {
-  player.idling = true;
-  //delay(250);//need a delay
-  player.atck = false;
-  player.lngatck = false;
-  left = false;
-  right = false;
-  up = false;
-  if (keyCode == LEFT || keyCode == RIGHT || keyCode == UP) {
-    newletter = false;
-  }
-}
-
 void mousePressed() {
   if (mk && (gameOver || paused)) { // at main menu or paused menu
     if (!paused) { // at main menu
@@ -132,5 +69,68 @@ void mousePressed() {
       inventoryOpen = false;
       gameOver = true;
     }
+  }
+}
+
+void keyPressed() {
+  if (!paused) {
+    if ((keyPressed == true) && (key == CODED)) {
+      if (keyCode == RIGHT) {
+        right = true;
+        newletter = true;
+      } else if (keyCode == LEFT) {
+        left = true;
+        newletter = true;
+      } else if (keyCode == UP) {
+        up = true;
+        newletter = true;
+      }
+    }
+    if (key == 'x') {
+      newletter = true;
+      if (swordEquipped)
+        player.atck = true;
+      else if(!swordEquipped)
+        player.lngatck = true;
+    }
+    if (key == 'p') {
+      newletter = true;
+      if (paused == false) {
+        paused = true;
+      }
+    }
+    if (key == 'i') {
+      newletter = true;
+      if (inventoryOpen == false) {
+        inventoryOpen = true;
+      } else {
+        inventoryOpen = false;
+      }
+    }
+  } else {
+    if (key == 'p') {
+      newletter = true;
+      if (paused == true) {
+        paused = false;
+      }
+    } else if (key == 'i') {
+      newletter = true;
+      if (inventoryOpen == true) {
+        inventoryOpen = false;
+      }
+    }
+  }
+}
+
+void keyReleased() {
+  player.idling = true;
+  //delay(250);//need a delay
+  player.atck = false;
+  player.lngatck = false;
+  left = false;
+  right = false;
+  up = false;
+  if (keyCode == LEFT || keyCode == RIGHT || keyCode == UP) {
+    newletter = false;
   }
 }

@@ -14,47 +14,94 @@ void getUserInput() {
   hat_right = hat.right();
   hat_up = hat.up();
   hat_down = hat.down();
+  
+  if(!gameOver && !paused) {
+    if(hat_left) {
+      left = true;
+      newletter = true;
+    } else {
+      left = false;
+    }
+    if(hat_right) {
+      right = true;
+      newletter = true;
+    } else {
+      right = false;
+    }
+    //if(!hat_right && !hat_left) {
+    //  newletter = false;
+    //  player.idling = true;
+    //}
+  }
 }
 
-void handleA() {
-  if(gameOver) { // at start screen
+void releaseDPad(float x, float y) {
+  left = false;
+  right = false;
+  newletter = false;
+  player.idling = true;
+}
+
+void pressA() {
+  if (gameOver) { // at start screen
     gameOver = false;
     variant = false;
-  }
-  else if(!gameOver) { // in-game
-    
+  } 
+  else if (!gameOver && !paused) { // in-game
+    up = true;
+    newletter = true;
   }
 }
 
-void handleB() {
-  if(gameOver) {
+void releaseA() {
+  if(!gameOver) {
+    player.idling = true;
+    up = false;
+    newletter = false;
+  }
+}
+
+void pressB() {
+  if (gameOver) {
     gameOver = false;
     variant = true;
-  }
-  else if(!gameOver) {
+  } else if (!gameOver && !paused) {
     newletter = true;
-      if (swordEquipped)
-        player.atck = true;
-      else if(!swordEquipped)
-        player.lngatck = true;
+    if (swordEquipped && !player.atck) {
+      player.atck = true;
+    } 
+    else if (!swordEquipped && !player.lngatck) {
+      player.lngatck = true;
+    }
+  }
+}
+
+void releaseB() {
+  if(!gameOver) {
+    newletter = false;
+    if (swordEquipped && player.atck) {
+      player.atck = false;
+    }
+    else if(!swordEquipped && player.lngatck) {
+      player.lngatck = false;
+    }
   }
 }
 
 void leftToggle() {
-  if(!gameOver) {
+  if (!gameOver) {
     swordEquipped = !swordEquipped;
   }
-  
 }
 
 void rightToggle() {
-  if(!gameOver) {
+  if (!gameOver) {
     swordEquipped = !swordEquipped;
   }
 }
 
 void handleStart() {
-  if(!gameOver) {
+  if (!gameOver) {
     paused = !paused;
   }
 }

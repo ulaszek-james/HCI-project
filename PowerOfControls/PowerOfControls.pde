@@ -104,10 +104,13 @@ void setup() {
   } else {
     controller = true;
     hat = stick.getHat("dPad");
+    hat.plug(this, "releaseDPad", ControlIO.ON_RELEASE);
     stick.getButton("L").plug(this, "leftToggle", ControlIO.ON_RELEASE);
     stick.getButton("R").plug(this, "rightToggle", ControlIO.ON_RELEASE);
-    stick.getButton("A").plug(this, "handleA", ControlIO.ON_RELEASE);
-    stick.getButton("B").plug(this, "handleB", ControlIO.ON_RELEASE);
+    stick.getButton("A").plug(this, "pressA", ControlIO.ON_PRESS);
+    stick.getButton("A").plug(this, "releaseA", ControlIO.ON_RELEASE);
+    stick.getButton("B").plug(this, "pressB", ControlIO.ON_PRESS);
+    stick.getButton("B").plug(this, "releaseB", ControlIO.ON_RELEASE);
     stick.getButton("Start").plug(this, "handleStart", ControlIO.ON_RELEASE);
   }
 

@@ -59,7 +59,6 @@ public class Knight {
       }
     }
 
-
     if (connected == false) {
       speedY += gravity; //apply gravity when not on platform
     } else {
