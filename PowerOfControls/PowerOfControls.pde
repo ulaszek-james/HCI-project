@@ -99,7 +99,7 @@ void setup() {
   startA_button = new Button("START A", 26, 70, 400, width/3, height/10);
   startB_button = new Button("START B", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
-  backButton = new Button("Back", 18, 40, width-120, width/6, height/12);
+  backButton = new Button("Back to Main Menu", 18, width/2-115, height/3+ 200, width/3, height/12);
 
   //BOX INVENTORY BUTTONS
   swordButton = new Button("Equip SWORD", 26, 70, 400, width/3, height/10);
@@ -281,8 +281,20 @@ void drawInventoryWheel() {
   textSize(30);
   fill(0);
   text("Inventory (V.B.)", 150, 50);
-  pop();
+
+  fill(255);
+  rect(0, 0, width, height);
+  
+  fill(0);
   //INVENTORY STUFF wheel version
+  text("UP to equip Sword", 350, height/3);
+  text("DOWN to equip Spell", 350, height/3+ height/3);
+  pop();
+  //REMMY: IF ANALOG IS UP SET swordEquipped to TRUE
+  //IF ANALOG IS DOWN set swordEquipped to FALSE
+  //THEN CLOSE INVENTORY
+  
+  
 }
 void drawInventoryBar() {
   push();
@@ -304,10 +316,14 @@ void drawInventoryBar() {
 }
 
 void drawPausedScreen() {
+  fill(255);
+  rect(0,0,width, height);
   push();
   textSize(64);
   fill(0);
-  text("Paused", 350, 350);
+  text("Paused", 350, height/3);
+  textSize(40);
+  text("Press P to unpause", 350, height/3 + 100);
   pop();
   if (backButton.MouseIsOver()) {
     backButton.drawActiveButton();

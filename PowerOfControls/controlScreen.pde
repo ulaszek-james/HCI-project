@@ -49,7 +49,8 @@ class ControlScreen {
         text("Backwards:         LEFT ARROW", x+(w/3)+22, (y+205) + (h/10));
         text("Jump:              UP ARROW", x+(w/3)+22, (y+245) + (h/10));
         text("Attack:            'X' Key", x+(w/3)+22, (y+285) + (h/10));
-        text("TO PAUSE PRESS P", x+(w/2)+22, (y+325) + (h/10));
+        text("Inventory:         Press 'I'", x+(w/3)+22, (y+325) + (h/10));
+        text("TO PAUSE & UNPAUSE PRESS P", x+(w/2)+22, (y+375) + (h/10));
         text("Click anywhere outside of box to return.", x+(w/2)+22, (y+400) + (h/10));
         pop();
         break;
