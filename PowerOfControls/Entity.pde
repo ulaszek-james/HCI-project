@@ -27,14 +27,17 @@ public class Entity {
     e_connected = false;
     e_gravity = 0.9;
     
-    e_health = 30;
+    e_health = 100;
     MAX_HEALTH = e_health;
     dead = false;
   }
   
   void drawEnt(){
     fill(0,0,0);
-    rect(e_posX, e_posY, e_w, e_h);
+    //rect(e_posX, e_posY, e_w, e_h);
+    pushMatrix();
+    image(ES[(frameCount / 5) % 4], e_posX, e_posY);
+    popMatrix();
     
     drawHealthBar();
     
@@ -42,10 +45,16 @@ public class Entity {
     float distX = player.posX - e_posX;
     float distY = player.posY - e_posY;
 
-    if((distX > -60 && distX < 0 && distY >-20 && distY < 20 && player.direction == true && player.atck == true) || 
-        (distX < 60 && distX > 0 && distY >-20 && distY < 20 && player.direction == false && player.atck == true)) 
+    if((distX > -60 && distX < 0 && distY >-40 && distY < 40 && player.direction == true && player.atck == true) || 
+        (distX < 60 && distX > 0 && distY >-40 && distY < 40 && player.direction == false && player.atck == true)) 
       {
-        e_health--;
+        e_health = e_health - 1;
+        if(e_health < 0) { e_health = 0;}
+      }
+      if((distX > -60 && distX < 0 && distY >-40 && distY < 40 && player.direction == true && player.lngatck == true) || 
+        (distX < 60 && distX > 0 && distY >-40 && distY < 40 && player.direction == false && player.lngatck == true)) 
+      {
+        e_health = e_health - 3;
         if(e_health < 0) { e_health = 0;}
       }
   }

@@ -54,7 +54,7 @@ public class Knight {
     }
     if (up) {
       if (connected && newletter) {
-        speedY = -15;
+        speedY = -10;
         connected = false;
       }
     }

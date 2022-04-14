@@ -29,11 +29,14 @@ Platform p = new Platform(100, 600);
 Platform p1 = new Platform(350, 550);
 Platform p2 = new Platform(567, 367);
 Platform p3 = new Platform(300, 245);
+Platform p4 = new Platform(0, 450);
+
 Platform groundFlr = new Platform(100, 100); 
 
 //ENTITIES
-Entity e1 = new Entity(400, 610);
-Entity e2 = new Entity(300, 215);
+Entity e1 = new Entity(400, 630);
+Entity e2 = new Entity(360, 237);
+Entity e3 = new Entity(200, 593);
 float entityRange = 0;
 
 // Game controllers
@@ -58,6 +61,12 @@ PImage[] KB = new PImage[10];
 int cols = 10;
 int w = 120;//tile width
 int h = 80;//tile height
+
+
+PImage entitySprite;
+PImage[] ES = new PImage[16];
+int e_w = 16 ;
+int e_h = 16;
 
 PImage ground;
 
@@ -97,6 +106,13 @@ void setup() {
   ground = loadImage("ground.jpg");
 
   //sprites
+  entitySprite = loadImage("SlimeA.png");
+  for (int i = 0; i<ES.length; i++) {
+    int tx = floor(i%16)*e_w;
+    int ty = floor(i/16)*e_h;
+    ES[i]=entitySprite.get(tx, ty, e_w, e_h);
+  }
+  
   knightIdleSprite = loadImage("_Idle.png");
   for (int i = 0; i<KI.length; i++) {
     int tx = floor(i%cols)*w;
@@ -124,6 +140,8 @@ void setup() {
     int ty = floor(i/4)*h;
     KA[i]=knightAtckSprite.get(tx, ty, w, h);
   }
+  
+  p4.speed = 1;
 }
 
 void draw() {
@@ -142,7 +160,7 @@ void runGame() {
   } else if (variant) {
     background(bckgrndB);
   }
-  groundFlr.display(color(129, 133, 137));
+  groundFlr.display(color(129, 133, 137), 0);
   //println("posx: " + player.posX);
   //println("posy: " + player.posY);
   //println("");
@@ -151,16 +169,20 @@ void runGame() {
   for (int i = 0; i < 700; i+=100) {
     image(ground, i, 750);
   }
-  p.display(color(129, 133, 137));
-  p1.display(color(129, 133, 137));
-  p2.display(color(129, 133, 137));
-  p3.display(color(129, 133, 137));
+  p.display(color(129, 133, 137), 0);
+  p1.display(color(129, 133, 137), 0);
+  p2.display(color(129, 133, 137), 0);
+  p3.display(color(129, 133, 137), 0);
+  p4.display(color(129, 133, 137), 0.1);
 
   if (e1.e_health > 0) {
     e1.drawEnt();
   }
   if (e2.e_health > 0) {
     e2.drawEnt();
+  }
+  if (e2.e_health > 0) {
+    e3.drawEnt();
   }
 
 
@@ -188,6 +210,10 @@ void runGame() {
     player.pBeg = p3.x;
     player.pEnd = p3.x + 200;
     player.land(p3.y);
+  }else if (intersection(player, p4)) {
+    player.pBeg = p4.x;
+    player.pEnd = p4.x + 200;
+    player.land(p4.y);
   } else if (intersection(player, groundFlr)) {
     //fill(255, 255, 0, 50);
     //rect(0, 0, width, height);
