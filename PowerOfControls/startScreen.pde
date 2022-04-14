@@ -1,3 +1,5 @@
+int controllerOption;
+
 void startGameScreen() { // start screen
   push();
   background(0);

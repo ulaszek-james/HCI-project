@@ -41,6 +41,8 @@ float entityRange = 0;
 
 // Game controllers
 boolean mk;
+boolean controller;
+
 
 // Game Screens
 ControlScreen controlScreen;
@@ -90,6 +92,24 @@ void setup() {
   left = false;
   right = false;
   up = false;
+  
+  
+  // initialize controller
+  control = ControlIO.getInstance(this);
+  // find device that matches config file
+  stick = control.getMatchedDevice("N64-config");
+  if(stick == null) {
+    println("no suitable device configured");
+    mk = true; // mouse and keyboard is default controller
+  } else {
+    controller = true;
+    hat = stick.getHat("dPad");
+    stick.getButton("L").plug(this, "leftToggle", ControlIO.ON_RELEASE);
+    stick.getButton("R").plug(this, "rightToggle", ControlIO.ON_RELEASE);
+    stick.getButton("A").plug(this, "handleA", ControlIO.ON_RELEASE);
+    stick.getButton("B").plug(this, "handleB", ControlIO.ON_RELEASE);
+    stick.getButton("Start").plug(this, "handleStart", ControlIO.ON_RELEASE);
+  }
 
   //startButton = new Button("START", 26, 400, 400, width/3, height/10);
   startA_button = new Button("START A", 26, 70, 400, width/3, height/10);
@@ -100,8 +120,7 @@ void setup() {
   //BOX INVENTORY BUTTONS
   swordButton = new Button("Equip SWORD", 26, 70, 400, width/3, height/10);
   spellButton = new Button("Equip SPELL", 26, 400, 400, width/3, height/10);
-
-  mk = true; // mouse and keyboard is default controller
+  
   controlScreen = new ControlScreen(); 
   ground = loadImage("ground.jpg");
 
@@ -145,8 +164,10 @@ void setup() {
 }
 
 void draw() {
+  if(controller) {
+    getUserInput();
+  }
   if (gameOver) {
-
     startGameScreen();
   } else {
     levelSelectScreen();
@@ -256,6 +277,7 @@ void runGame() {
   }
 }
 
+
 void drawInventoryWheel() {
   push();
   textSize(30);
@@ -303,69 +325,6 @@ void drawPausedScreen() {
 
   if (controls) {
     controlScreen.drawWindow();
-  }
-}
-
-void keyPressed() {
-  if (!paused) {
-    if ((keyPressed == true) && (key == CODED)) {
-      if (keyCode == RIGHT) {
-        right = true;
-        newletter = true;
-      } else if (keyCode == LEFT) {
-        left = true;
-        newletter = true;
-      } else if (keyCode == UP) {
-        up = true;
-        newletter = true;
-      }
-    }
-    if (key == 'x') {
-      newletter = true;
-      if (swordEquipped)
-        player.atck = true;
-      else if(!swordEquipped)
-        player.lngatck = true;
-    }
-    if (key == 'p') {
-      newletter = true;
-      if (paused == false) {
-        paused = true;
-      }
-    }
-    if (key == 'i') {
-      newletter = true;
-      if (inventoryOpen == false) {
-        inventoryOpen = true;
-      } else {
-        inventoryOpen = false;
-      }
-    }
-  } else {
-    if (key == 'p') {
-      newletter = true;
-      if (paused == true) {
-        paused = false;
-      }
-    } else if (key == 'i') {
-      newletter = true;
-      if (inventoryOpen == true) {
-        inventoryOpen = false;
-      }
-    }
-  }
-}
-
-void keyReleased() {
-  player.idling = true;
-  //delay(250);//need a delay
-  player.atck = false;
-  player.lngatck = false;
-  left = false;
-  right = false;
-  up = false;
-  if (keyCode == LEFT || keyCode == RIGHT || keyCode == UP) {
-    newletter = false;
   }
 }
 
