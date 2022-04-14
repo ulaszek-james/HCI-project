@@ -5,6 +5,7 @@ boolean paused;
 boolean inventoryOpen;
 boolean controls;
 boolean newletter;
+boolean gameWon;
 
 //variant false = version A
 //variant true = version B
@@ -27,15 +28,17 @@ Button spellButton;
 Knight player = new Knight();
 Platform p = new Platform(100, 600);
 Platform p1 = new Platform(350, 550);
-Platform p2 = new Platform(567, 367);
-Platform p3 = new Platform(300, 245);
+Platform p2 = new Platform(567, 350);
+Platform p3 = new Platform(0, 200);
+//moving platforms
 Platform p4 = new Platform(0, 450);
+Platform p5 = new Platform(width, 275);
 
 Platform groundFlr = new Platform(100, 100); 
 
 //ENTITIES
 Entity e1 = new Entity(400, 630);
-Entity e2 = new Entity(360, 237);
+Entity e2 = new Entity(110, 193);
 Entity e3 = new Entity(200, 593);
 float entityRange = 0;
 
@@ -82,6 +85,7 @@ void setup() {
   bckgrnd = loadImage("temp.jpg");
   bckgrndB = loadImage("temp2.png");
   groundFlr.grndFloor(0, 637);
+  gameWon = false;
 
   imageMode(CENTER);
   gameOver = true;
@@ -119,7 +123,7 @@ void setup() {
   startA_button = new Button("START A", 26, 70, 400, width/3, height/10);
   startB_button = new Button("START B", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
-  backButton = new Button("Back", 18, 40, width-120, width/6, height/12);
+  backButton = new Button("Back to Main Menu", 18, width/2-115, height/3+ 200, width/3, height/12);
 
   //BOX INVENTORY BUTTONS
   swordButton = new Button("Equip SWORD", 26, 70, 400, width/3, height/10);
@@ -199,15 +203,26 @@ void runGame() {
   p2.display(color(129, 133, 137), 0);
   p3.display(color(129, 133, 137), 0);
   p4.display(color(129, 133, 137), 1);
+  p5.display(color(129, 133, 137), -1);
+  fill(0);
+  rect(20, 130, 5, 70);
+  if(gameWon == false)
+  fill(color(255, 0, 0));
+  if(gameWon == true)
+  fill(color(0, 255, 0));
+  rect(20, 120, 50, 20);
 
-  if (e1.e_health > 0) {
+  if (e3.e_health > 0) {
+    e3.drawEnt();
+  }
+  else if (e1.e_health > 0) {
     e1.drawEnt();
   }
-  if (e2.e_health > 0) {
+  else if (e2.e_health > 0) {
     e2.drawEnt();
   }
-  if (e2.e_health > 0) {
-    e3.drawEnt();
+  else{
+    gameWon = true;
   }
 
 
@@ -239,7 +254,12 @@ void runGame() {
     player.pBeg = p4.x;
     player.pEnd = p4.x + 200;
     player.land(p4.y);
-  } else if (intersection(player, groundFlr)) {
+  }else if (intersection(player, p5)) {
+    player.pBeg = p5.x;
+    player.pEnd = p5.x + 200;
+    player.land(p5.y);
+  }
+  else if (intersection(player, groundFlr)) {
     //fill(255, 255, 0, 50);
     //rect(0, 0, width, height);
     player.pBeg = groundFlr.x;
@@ -287,8 +307,20 @@ void drawInventoryWheel() {
   textSize(30);
   fill(0);
   text("Inventory (V.B.)", 150, 50);
-  pop();
+
+  fill(255);
+  rect(0, 0, width, height);
+  
+  fill(0);
   //INVENTORY STUFF wheel version
+  text("UP to equip Sword", 350, height/3);
+  text("DOWN to equip Spell", 350, height/3+ height/3);
+  pop();
+  //REMMY: IF ANALOG IS UP SET swordEquipped to TRUE
+  //IF ANALOG IS DOWN set swordEquipped to FALSE
+  //THEN CLOSE INVENTORY
+  
+  
 }
 void drawInventoryBar() {
   push();
@@ -310,10 +342,14 @@ void drawInventoryBar() {
 }
 
 void drawPausedScreen() {
+  fill(255);
+  rect(0,0,width, height);
   push();
   textSize(64);
   fill(0);
-  text("Paused", 350, 350);
+  text("Paused", 350, height/3);
+  textSize(40);
+  text("Press P to unpause", 350, height/3 + 100);
   pop();
   if (backButton.MouseIsOver()) {
     backButton.drawActiveButton();
