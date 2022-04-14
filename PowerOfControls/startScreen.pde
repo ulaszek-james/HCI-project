@@ -16,10 +16,16 @@ void showStartMenu() { // holds start menu options
     controlButton.drawButton();
   }
   
-  if(!controls && startButton.MouseIsOver()) {
-    startButton.drawActiveButton();
+  if(!controls && startB_button.MouseIsOver()) {
+    startB_button.drawActiveButton();
   } else {
-    startButton.drawButton();
+    startB_button.drawButton();
+  }
+  
+  if(!controls && startA_button.MouseIsOver()) {
+    startA_button.drawActiveButton();
+  } else {
+    startA_button.drawButton();
   }
 
   if (controls) {

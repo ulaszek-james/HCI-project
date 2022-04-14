@@ -3,8 +3,16 @@
 void mousePressed() {
   if (mk && (gameOver || paused)) { // at main menu or paused menu
     if (!paused) { // at main menu
-      if (!controls && startButton.MouseIsOver()) {
-        startButton.drawClickedButton();
+      if (!controls && startA_button.MouseIsOver()) {
+        startA_button.drawClickedButton();
+        variant = false;
+        gameOver = false; // start game
+        //levelSelect = true; // go to level select screen
+        return;
+      }
+      if (!controls && startB_button.MouseIsOver()) {
+        startB_button.drawClickedButton();
+        variant = true;
         gameOver = false; // start game
         //levelSelect = true; // go to level select screen
         return;

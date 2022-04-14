@@ -5,11 +5,17 @@ boolean paused;
 boolean controls;
 boolean newletter;
 
+//variant false = version A
+//variant true = version B
+boolean variant;
+
 boolean left, right, up, down;
 boolean swordEquipped;
 
 // Game Buttons
 Button startButton;
+Button startA_button;
+Button startB_button;
 Button controlButton;
 Button backButton;
 
@@ -33,6 +39,7 @@ ControlScreen controlScreen;
 
 //sprites
 PImage bckgrnd;
+PImage bckgrndB;
 PImage knightIdleSprite;
 PImage[] KI = new PImage[10];
 PImage knightAtckSprite;
@@ -57,6 +64,7 @@ void setup() {
   background(0);
   swordEquipped = true;
   bckgrnd = loadImage("temp.jpg");
+  bckgrndB = loadImage("temp2.png");
   groundFlr.grndFloor(0, 637);
 
   imageMode(CENTER);
@@ -68,7 +76,9 @@ void setup() {
   right = false;
   up = false;
 
-  startButton = new Button("START", 26, 400, 400, width/3, height/10);
+  //startButton = new Button("START", 26, 400, 400, width/3, height/10);
+  startA_button = new Button("START A", 26, 70, 400, width/3, height/10);
+  startB_button = new Button("START B", 26, 400, 400, width/3, height/10);
   controlButton = new Button("Controls", 18, 40, 40, width/6, height/12);
   backButton = new Button("Back", 18, 40, width-120, width/6, height/12);
 
@@ -83,9 +93,9 @@ void setup() {
     int ty = floor(i/cols)*h;
     KI[i]=knightIdleSprite.get(tx, ty, w, h);
   }
-  
+
   knightSpellSprite = loadImage("_Attack_Spell.png");
-    for (int i = 0; i<KS.length; i++) {
+  for (int i = 0; i<KS.length; i++) {
     int tx = floor(i%cols)*w;
     int ty = floor(i/cols)*h;
     KS[i]=knightSpellSprite.get(tx, ty, w, h);
@@ -108,6 +118,7 @@ void setup() {
 
 void draw() {
   if (gameOver) {
+
     startGameScreen();
   } else {
     levelSelectScreen();
@@ -116,7 +127,12 @@ void draw() {
 }
 
 void runGame() {
-  background(bckgrnd);
+  if(!variant){
+    background(bckgrnd);
+  }
+  else if(variant){
+    background(bckgrndB);
+  }
   groundFlr.display(color(129, 133, 137));
   //println("posx: " + player.posX);
   //println("posy: " + player.posY);
@@ -130,14 +146,14 @@ void runGame() {
   p1.display(color(129, 133, 137));
   p2.display(color(129, 133, 137));
   p3.display(color(129, 133, 137));
-  
-  if(e1.e_health > 0){
+
+  if (e1.e_health > 0) {
     e1.drawEnt();
   }
-  if(e2.e_health > 0){
+  if (e2.e_health > 0) {
     e2.drawEnt();
   }
- 
+
 
   if (intersection(player, p)) {
     //fill(255, 255, 0, 50);
@@ -181,7 +197,7 @@ void runGame() {
   if (player.idling == true && player.atck == false) {
     player.drawIdle();
   } else if (player.atck == true) {
-    if(swordEquipped)
+    if (swordEquipped)
       player.drawAttack();
     //else if spell is equipped
     else
@@ -228,12 +244,10 @@ void keyPressed() {
       if (keyCode == RIGHT) {
         right = true;
         newletter = true;
-      }
-      else if (keyCode == LEFT) {
+      } else if (keyCode == LEFT) {
         left = true;
         newletter = true;
-      }
-      else if (keyCode == UP) {
+      } else if (keyCode == UP) {
         up = true;
         newletter = true;
       }
@@ -248,16 +262,14 @@ void keyPressed() {
         paused = true;
       }
     }
-    if(key == '1'){
-      if(swordEquipped){
+    if (key == '1') {
+      if (swordEquipped) {
         swordEquipped = false;
-      }
-      else{
+      } else {
         swordEquipped = true;
       }
     }
-  }
-  else{
+  } else {
     if (key == 'p') {
       newletter = true;
       if (paused == true) {
